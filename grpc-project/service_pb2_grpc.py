@@ -26,8 +26,7 @@ if _version_not_supported:
 
 
 class MyServiceStub(object):
-    """Definisikan layanan yang menggunakan 4 jenis metode
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -35,55 +34,54 @@ class MyServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.UnaryMethod = channel.unary_unary(
-                '/myservice.MyService/UnaryMethod',
-                request_serializer=service__pb2.RequestMessage.SerializeToString,
-                response_deserializer=service__pb2.ResponseMessage.FromString,
+        self.UnaryHello = channel.unary_unary(
+                '/myservice.MyService/UnaryHello',
+                request_serializer=service__pb2.HelloRequest.SerializeToString,
+                response_deserializer=service__pb2.HelloResponse.FromString,
                 _registered_method=True)
-        self.ServerStreamingMethod = channel.unary_stream(
-                '/myservice.MyService/ServerStreamingMethod',
-                request_serializer=service__pb2.RequestMessage.SerializeToString,
-                response_deserializer=service__pb2.ResponseMessage.FromString,
+        self.ServerStreamHello = channel.unary_stream(
+                '/myservice.MyService/ServerStreamHello',
+                request_serializer=service__pb2.HelloRequest.SerializeToString,
+                response_deserializer=service__pb2.HelloResponse.FromString,
                 _registered_method=True)
-        self.ClientStreamingMethod = channel.stream_unary(
-                '/myservice.MyService/ClientStreamingMethod',
-                request_serializer=service__pb2.RequestMessage.SerializeToString,
-                response_deserializer=service__pb2.ResponseMessage.FromString,
+        self.ClientStreamHello = channel.stream_unary(
+                '/myservice.MyService/ClientStreamHello',
+                request_serializer=service__pb2.HelloRequest.SerializeToString,
+                response_deserializer=service__pb2.HelloResponse.FromString,
                 _registered_method=True)
-        self.BidirectionalStreamingMethod = channel.stream_stream(
-                '/myservice.MyService/BidirectionalStreamingMethod',
-                request_serializer=service__pb2.RequestMessage.SerializeToString,
-                response_deserializer=service__pb2.ResponseMessage.FromString,
+        self.Chat = channel.stream_stream(
+                '/myservice.MyService/Chat',
+                request_serializer=service__pb2.HelloRequest.SerializeToString,
+                response_deserializer=service__pb2.HelloResponse.FromString,
                 _registered_method=True)
 
 
 class MyServiceServicer(object):
-    """Definisikan layanan yang menggunakan 4 jenis metode
-    """
+    """Missing associated documentation comment in .proto file."""
 
-    def UnaryMethod(self, request, context):
-        """Unary method
+    def UnaryHello(self, request, context):
+        """Unary RPC
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ServerStreamingMethod(self, request, context):
-        """Server streaming method
+    def ServerStreamHello(self, request, context):
+        """Server Streaming RPC
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ClientStreamingMethod(self, request_iterator, context):
-        """Client streaming method
+    def ClientStreamHello(self, request_iterator, context):
+        """Client Streaming RPC
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def BidirectionalStreamingMethod(self, request_iterator, context):
-        """Bidirectional streaming method
+    def Chat(self, request_iterator, context):
+        """Bidirectional Streaming RPC
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -92,25 +90,25 @@ class MyServiceServicer(object):
 
 def add_MyServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'UnaryMethod': grpc.unary_unary_rpc_method_handler(
-                    servicer.UnaryMethod,
-                    request_deserializer=service__pb2.RequestMessage.FromString,
-                    response_serializer=service__pb2.ResponseMessage.SerializeToString,
+            'UnaryHello': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnaryHello,
+                    request_deserializer=service__pb2.HelloRequest.FromString,
+                    response_serializer=service__pb2.HelloResponse.SerializeToString,
             ),
-            'ServerStreamingMethod': grpc.unary_stream_rpc_method_handler(
-                    servicer.ServerStreamingMethod,
-                    request_deserializer=service__pb2.RequestMessage.FromString,
-                    response_serializer=service__pb2.ResponseMessage.SerializeToString,
+            'ServerStreamHello': grpc.unary_stream_rpc_method_handler(
+                    servicer.ServerStreamHello,
+                    request_deserializer=service__pb2.HelloRequest.FromString,
+                    response_serializer=service__pb2.HelloResponse.SerializeToString,
             ),
-            'ClientStreamingMethod': grpc.stream_unary_rpc_method_handler(
-                    servicer.ClientStreamingMethod,
-                    request_deserializer=service__pb2.RequestMessage.FromString,
-                    response_serializer=service__pb2.ResponseMessage.SerializeToString,
+            'ClientStreamHello': grpc.stream_unary_rpc_method_handler(
+                    servicer.ClientStreamHello,
+                    request_deserializer=service__pb2.HelloRequest.FromString,
+                    response_serializer=service__pb2.HelloResponse.SerializeToString,
             ),
-            'BidirectionalStreamingMethod': grpc.stream_stream_rpc_method_handler(
-                    servicer.BidirectionalStreamingMethod,
-                    request_deserializer=service__pb2.RequestMessage.FromString,
-                    response_serializer=service__pb2.ResponseMessage.SerializeToString,
+            'Chat': grpc.stream_stream_rpc_method_handler(
+                    servicer.Chat,
+                    request_deserializer=service__pb2.HelloRequest.FromString,
+                    response_serializer=service__pb2.HelloResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -121,11 +119,10 @@ def add_MyServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class MyService(object):
-    """Definisikan layanan yang menggunakan 4 jenis metode
-    """
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def UnaryMethod(request,
+    def UnaryHello(request,
             target,
             options=(),
             channel_credentials=None,
@@ -138,9 +135,9 @@ class MyService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/myservice.MyService/UnaryMethod',
-            service__pb2.RequestMessage.SerializeToString,
-            service__pb2.ResponseMessage.FromString,
+            '/myservice.MyService/UnaryHello',
+            service__pb2.HelloRequest.SerializeToString,
+            service__pb2.HelloResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -152,7 +149,7 @@ class MyService(object):
             _registered_method=True)
 
     @staticmethod
-    def ServerStreamingMethod(request,
+    def ServerStreamHello(request,
             target,
             options=(),
             channel_credentials=None,
@@ -165,9 +162,9 @@ class MyService(object):
         return grpc.experimental.unary_stream(
             request,
             target,
-            '/myservice.MyService/ServerStreamingMethod',
-            service__pb2.RequestMessage.SerializeToString,
-            service__pb2.ResponseMessage.FromString,
+            '/myservice.MyService/ServerStreamHello',
+            service__pb2.HelloRequest.SerializeToString,
+            service__pb2.HelloResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -179,7 +176,7 @@ class MyService(object):
             _registered_method=True)
 
     @staticmethod
-    def ClientStreamingMethod(request_iterator,
+    def ClientStreamHello(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -192,9 +189,9 @@ class MyService(object):
         return grpc.experimental.stream_unary(
             request_iterator,
             target,
-            '/myservice.MyService/ClientStreamingMethod',
-            service__pb2.RequestMessage.SerializeToString,
-            service__pb2.ResponseMessage.FromString,
+            '/myservice.MyService/ClientStreamHello',
+            service__pb2.HelloRequest.SerializeToString,
+            service__pb2.HelloResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -206,7 +203,7 @@ class MyService(object):
             _registered_method=True)
 
     @staticmethod
-    def BidirectionalStreamingMethod(request_iterator,
+    def Chat(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -219,9 +216,9 @@ class MyService(object):
         return grpc.experimental.stream_stream(
             request_iterator,
             target,
-            '/myservice.MyService/BidirectionalStreamingMethod',
-            service__pb2.RequestMessage.SerializeToString,
-            service__pb2.ResponseMessage.FromString,
+            '/myservice.MyService/Chat',
+            service__pb2.HelloRequest.SerializeToString,
+            service__pb2.HelloResponse.FromString,
             options,
             channel_credentials,
             insecure,

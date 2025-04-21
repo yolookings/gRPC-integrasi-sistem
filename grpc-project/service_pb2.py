@@ -24,17 +24,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rservice.proto\x12\tmyservice\"\x1e\n\x0eRequestMessage\x12\x0c\n\x04name\x18\x01 \x01(\t\"\"\n\x0fResponseMessage\x12\x0f\n\x07message\x18\x01 \x01(\t2\xd0\x02\n\tMyService\x12\x44\n\x0bUnaryMethod\x12\x19.myservice.RequestMessage\x1a\x1a.myservice.ResponseMessage\x12P\n\x15ServerStreamingMethod\x12\x19.myservice.RequestMessage\x1a\x1a.myservice.ResponseMessage0\x01\x12P\n\x15\x43lientStreamingMethod\x12\x19.myservice.RequestMessage\x1a\x1a.myservice.ResponseMessage(\x01\x12Y\n\x1c\x42idirectionalStreamingMethod\x12\x19.myservice.RequestMessage\x1a\x1a.myservice.ResponseMessage(\x01\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rservice.proto\x12\tmyservice\"-\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\" \n\rHelloResponse\x12\x0f\n\x07message\x18\x01 \x01(\t2\x9f\x02\n\tMyService\x12?\n\nUnaryHello\x12\x17.myservice.HelloRequest\x1a\x18.myservice.HelloResponse\x12H\n\x11ServerStreamHello\x12\x17.myservice.HelloRequest\x1a\x18.myservice.HelloResponse0\x01\x12H\n\x11\x43lientStreamHello\x12\x17.myservice.HelloRequest\x1a\x18.myservice.HelloResponse(\x01\x12=\n\x04\x43hat\x12\x17.myservice.HelloRequest\x1a\x18.myservice.HelloResponse(\x01\x30\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_REQUESTMESSAGE']._serialized_start=28
-  _globals['_REQUESTMESSAGE']._serialized_end=58
-  _globals['_RESPONSEMESSAGE']._serialized_start=60
-  _globals['_RESPONSEMESSAGE']._serialized_end=94
-  _globals['_MYSERVICE']._serialized_start=97
-  _globals['_MYSERVICE']._serialized_end=433
+  _globals['_HELLOREQUEST']._serialized_start=28
+  _globals['_HELLOREQUEST']._serialized_end=73
+  _globals['_HELLORESPONSE']._serialized_start=75
+  _globals['_HELLORESPONSE']._serialized_end=107
+  _globals['_MYSERVICE']._serialized_start=110
+  _globals['_MYSERVICE']._serialized_end=397
 # @@protoc_insertion_point(module_scope)

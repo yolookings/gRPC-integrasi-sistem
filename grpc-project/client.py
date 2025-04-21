@@ -2,44 +2,61 @@ import grpc
 import service_pb2
 import service_pb2_grpc
 
-def run_unary():
+def run():
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = service_pb2_grpc.MyServiceStub(channel)
-        response = stub.UnaryMethod(service_pb2.RequestMessage(name="Alice"))
-        print(f"Unary response: {response.message}")
 
-def run_server_streaming():
-    with grpc.insecure_channel('localhost:50051') as channel:
-        stub = service_pb2_grpc.MyServiceStub(channel)
-        response_stream = stub.ServerStreamingMethod(service_pb2.RequestMessage(name="Bob"))
-        for response in response_stream:
-            print(f"Server Streaming response: {response.message}")
+        while True:
+            print("\\nPilih jenis RPC:")
+            print("1. Unary")
+            print("2. Server Streaming")
+            print("3. Client Streaming")
+            print("4. Bidirectional Streaming (Chat)")
+            print("0. Exit")
+            choice = input("Pilihan: ")
 
-def run_client_streaming():
-    with grpc.insecure_channel('localhost:50051') as channel:
-        stub = service_pb2_grpc.MyServiceStub(channel)
-        responses = stub.ClientStreamingMethod(iter([
-            service_pb2.RequestMessage(name="Charlie"),
-            service_pb2.RequestMessage(name="David")
-        ]))
-        print(f"Client Streaming response: {responses.message}")
+            if choice == "1":
+                name = input("Masukkan nama: ")
+                response = stub.UnaryHello(service_pb2.HelloRequest(name=name))
+                print(f"[Server]: {response.message}")
 
-def run_bidirectional_streaming():
-    with grpc.insecure_channel('localhost:50051') as channel:
-        stub = service_pb2_grpc.MyServiceStub(channel)
-        responses = stub.BidirectionalStreamingMethod(iter([
-            service_pb2.RequestMessage(name="Eve"),
-            service_pb2.RequestMessage(name="Dan")
-        ]))
-        for response in responses:
-            print(f"Bidirectional Streaming response: {response.message}")
+            elif choice == "2":
+                name = input("Masukkan nama: ")
+                for response in stub.ServerStreamHello(service_pb2.HelloRequest(name=name)):
+                    print(f"[Server]: {response.message}")
+
+            elif choice == "3":
+                print("Ketik nama, ketik 'done' untuk mengirim:")
+                def client_stream():
+                    while True:
+                        name = input("Nama: ")
+                        if name.lower() == "done":
+                            break
+                        yield service_pb2.HelloRequest(name=name)
+                response = stub.ClientStreamHello(client_stream())
+                print(f"[Server]: {response.message}")
+
+            elif choice == "4":
+                print("Masuk ke mode chat (ketik 'exit' untuk keluar):")
+                def generate_messages():
+                    name = input("Nama Anda: ")
+                    while True:
+                        msg = input("Anda: ")
+                        if msg.lower() == 'exit':
+                            break
+                        yield service_pb2.HelloRequest(name=name, message=msg)
+
+                responses = stub.Chat(generate_messages())
+                try:
+                    for response in responses:
+                        print(f"[Server]: {response.message}")
+                except grpc.RpcError:
+                    print("Koneksi chat selesai.")
+
+            elif choice == "0":
+                break
+            else:
+                print("Pilihan tidak dikenali.")
 
 if __name__ == '__main__':
-    print("Running Unary Method:")
-    run_unary()
-    print("\nRunning Server Streaming Method:")
-    run_server_streaming()
-    print("\nRunning Client Streaming Method:")
-    run_client_streaming()
-    print("\nRunning Bidirectional Streaming Method:")
-    run_bidirectional_streaming()
+    run()

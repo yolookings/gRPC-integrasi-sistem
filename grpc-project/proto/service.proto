@@ -2,27 +2,25 @@ syntax = "proto3";
 
 package myservice;
 
-// Definisikan layanan yang menggunakan 4 jenis metode
 service MyService {
-  // Unary method
-  rpc UnaryMethod (RequestMessage) returns (ResponseMessage);
+  // Unary RPC
+  rpc UnaryHello (HelloRequest) returns (HelloResponse);
 
-  // Server streaming method
-  rpc ServerStreamingMethod (RequestMessage) returns (stream ResponseMessage);
+  // Server Streaming RPC
+  rpc ServerStreamHello (HelloRequest) returns (stream HelloResponse);
 
-  // Client streaming method
-  rpc ClientStreamingMethod (stream RequestMessage) returns (ResponseMessage);
+  // Client Streaming RPC
+  rpc ClientStreamHello (stream HelloRequest) returns (HelloResponse);
 
-  // Bidirectional streaming method
-  rpc BidirectionalStreamingMethod (stream RequestMessage) returns (stream ResponseMessage);
+  // Bidirectional Streaming RPC
+  rpc Chat (stream HelloRequest) returns (stream HelloResponse);
 }
 
-// Pesan request
-message RequestMessage {
+message HelloRequest {
   string name = 1;
+  string message = 2; // Digunakan untuk chat
 }
 
-// Pesan response
-message ResponseMessage {
+message HelloResponse {
   string message = 1;
 }
